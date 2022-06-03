@@ -1,5 +1,6 @@
 const { User } = require("../models");
 const bcrypt = require('bcrypt');
+const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
@@ -15,13 +16,13 @@ const resolvers = {
             {
                 return null;
             }
-            //TODO: Implement Auth
-            return { token: {}, user: user}
+            const token = signToken(user);
+            return { token: token, user: user}
         },
         addUser: async (parent, args) => {
             const user = await User.create({ username: args.username, email: args.email, password: args.password });
-            //TODO: Implement Auth
-            return { token: {}, user: user}
+            const token = signToken(user);
+            return { token: token, user: user}
         },
         saveBook: async (parent, args) => {
             return User.findOneAndUpdate(
