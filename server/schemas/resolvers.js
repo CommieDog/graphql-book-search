@@ -24,11 +24,9 @@ const resolvers = {
             return { token: token, user: user}
         },
         addUser: async (parent, args) => {
-            //const user = await User.create({ username: args.username, email: args.email, password: args.password });
-            //const token = signToken(user);
-            //return { token: token, user: user};
-            //console.log("ABCD");
-            //return "ABCD";
+            const user = await User.create({ username: args.username, email: args.email, password: args.password });
+            const token = signToken(user);
+            return { token: token, user: user};
         },
         saveBook: async (parent, args) => {
             return User.findOneAndUpdate(
