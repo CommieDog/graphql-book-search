@@ -34,11 +34,11 @@ const resolvers = {
             return { token: token, user: user};
         },
         saveBook: async (parent, args, context) => {
-            //console.log("SaveBook context:", context);
+            console.log("B", args.bookId, args.authors, args.description, args.title, args.image, args.link);
             const A = await User.findOneAndUpdate(
                 { _id: context.user._id },
                 //{ _id: "629a1f11301d6b143068f7a4" },
-                { $addToSet: { savedBooks: args.bookId } },
+                { $addToSet: { savedBooks: { bookId: args.bookId, authors: args.authors, description: args.description, title: args.title, image: args.image, link: args.link }} },
                 { new: true, runValidators: true } // Very important, otherwise it sends back the old document!
             );
             console.log("A", A);
