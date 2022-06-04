@@ -32,6 +32,10 @@ const typeDefs = gql`
         user: User
     }
 
+    type TestType {
+        testString: String
+    }
+
     type Query {
         me: User
         test: String
@@ -42,6 +46,7 @@ const typeDefs = gql`
         addUser(username: String!, email: String!, password: String!): Auth
         saveBook(book: BookInput!): User
         removeBook(bookId: ID!): User
+        test: String
     }
 `;
 
