@@ -32,7 +32,6 @@ const resolvers = {
         saveBook: async (parent, args, context) => {
             const A = await User.findOneAndUpdate(
                 { _id: context.user._id },
-                //{ _id: "629a1f11301d6b143068f7a4" },
                 { $addToSet: { savedBooks: { bookId: args.bookId, authors: args.authors, description: args.description, title: args.title, image: args.image, link: args.link }} },
                 { new: true, runValidators: true } // Very important, otherwise it sends back the old document!
             );
