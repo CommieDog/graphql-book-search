@@ -13,7 +13,6 @@ const resolvers = {
     },
     Mutation: {
         login: async (parent, args) => {
-            console.log(args);
             const user = await User.findOne({ email: args.email });
             const passwordMatches = await user.isCorrectPassword(args.password);
             if(!passwordMatches)

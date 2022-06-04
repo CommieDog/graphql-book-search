@@ -32,7 +32,7 @@ const LoginForm = () => {
 
     try {
       //const response = await loginUser(userFormData);
-      const { data } = await loginUser({ email: userFormData.email, password: userFormData.password});
+      const { data } = await loginUser({variables: { ...userFormData }});
       /*if (!response.ok) {
         throw new Error('something went wrong!');
       }*/
