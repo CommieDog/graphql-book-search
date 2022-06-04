@@ -27,10 +27,11 @@ const resolvers = {
             const token = signToken(user);
             return { token: token, user: user};
         },
-        saveBook: async (parent, args) => {
+        saveBook: async (parent, args, context) => {
             return User.findOneAndUpdate(
-                { _id: args.user._id },
-                { $addToSet: { savedBooks: body } },
+                //{ _id: context.user._id },
+                { _id: "629a1f11301d6b143068f7a4" },
+                { $addToSet: { savedBooks: args.bookId } },
                 { new: true, runValidators: true } // Very important, otherwise it sends back the old document!
             );
         },
