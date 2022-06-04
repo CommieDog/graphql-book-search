@@ -55,16 +55,17 @@ const SavedBooks = () => {
 
     try {
       //const response = await deleteBook(bookId, token);
-      const { updatedUser } = removeBook({variables: {bookId}});
-
+      const updatedUser = (await removeBook({variables: {bookId}})).data.removeBook;
+console.log("updatedUser", updatedUser)
       /*if (!response.ok) {
         throw new Error('something went wrong!');
       }*/
 
       //const updatedUser = await response.json();
-      setUserData(updatedUser);
+      //setUserData(updatedUser);
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
+      window.location.reload(); // Needed to redo the query
     } catch (err) {
       console.error(err);
     }

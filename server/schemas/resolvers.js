@@ -45,12 +45,14 @@ const resolvers = {
             return A;
         },
         removeBook: async (parent, args, context) => {
-            console.log("OMG");
-            return User.findOneAndUpdate(
+            console.log("OMG", args.bookId);
+            const user = await User.findOneAndUpdate(
                 { _id: context.user._id },
-                { $pull: { savedBooks: { bookId: args.params.bookId } } },
+                { $pull: { savedBooks: { bookId: args.bookId } } },
                 { new: true } // Very important, otherwise it sends back the old document!
             );
+            console.log("C", user);
+            return user;
         }
     }
 }
