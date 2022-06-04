@@ -2,7 +2,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 This project is a refactoring of a book search engine to use GraphQL queries. This allows the client and server to communicate more efficiently. Also, gotta have the latest technology!
 
-![Screenshot of final product.](https://user-images.githubusercontent.com/56412072/171549845-4d63d6ae-c6c4-436f-a4cd-c86723a415ff.jpg)
+![Screenshot of final product.](https://user-images.githubusercontent.com/56412072/171985575-9af547c6-c0d4-4c38-9bda-b0a089bf6e35.jpg)
+
 
 
 ## Table of Contents
