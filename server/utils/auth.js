@@ -7,7 +7,6 @@ const expiration = '2h';
 module.exports = {
   // function for our authenticated routes
   authMiddleware: function ({ req }) {
-    console.log("Entering Middleware");
     // allows token to be sent via req.body, req.query, or headers
     let token = req.body.token || req.query.token || req.headers.authorization;
 
@@ -17,7 +16,6 @@ module.exports = {
     }
 
     if (!token) {
-      console.log("Exiting Middleware--No Token");
       return req;
     }
 
@@ -26,12 +24,10 @@ module.exports = {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
       req.user = data;
     } catch {
-      console.log("Exiting Middleware--Invalid Token");
       console.error('Invalid token');
     }
 
     // return the request object so it can be passed to the resolver as `context`
-    console.log("Exiting Middleware");
     return req;
   },
   signToken: function ({ username, email, _id }) {

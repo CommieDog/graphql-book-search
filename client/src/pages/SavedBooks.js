@@ -56,7 +56,7 @@ const SavedBooks = () => {
     try {
       //const response = await deleteBook(bookId, token);
       const updatedUser = (await removeBook({variables: {bookId}})).data.removeBook;
-console.log("updatedUser", updatedUser)
+
       /*if (!response.ok) {
         throw new Error('something went wrong!');
       }*/
@@ -76,7 +76,7 @@ console.log("updatedUser", updatedUser)
   if(loading) {
     return <h2>LOADING...</h2>;
   }
-console.log("userData", userData);
+
   return (
     <>
       <Jumbotron fluid className='text-light bg-dark'>

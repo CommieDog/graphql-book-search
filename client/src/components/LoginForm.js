@@ -22,7 +22,7 @@ const LoginForm = () => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-console.log("!!!")
+
     // check if form has everything (as per react-bootstrap docs)
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
@@ -38,9 +38,9 @@ console.log("!!!")
       }
       const { login } = data;
       //const { token, user } = await response.json();
-      console.log("login", login);
+
       const { token, user } = login;
-      console.log(user);
+
       Auth.login(token);
     } catch (err) {
       console.error(err);
