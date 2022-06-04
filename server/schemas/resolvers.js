@@ -4,8 +4,12 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
-        me: async (parent, args) => {
-            return await User.findById(args.id);
+        me: async (parent, args, context) => {
+            console.log("me");
+            console.log("WTF", context.user._id);
+            const user = await User.findById(context.user._id);
+            console.log(user);
+            return user;
         },
         test: async () => {
             return "Test"
@@ -13,10 +17,12 @@ const resolvers = {
     },
     Mutation: {
         login: async (parent, args) => {
+            console.log("login");
             const user = await User.findOne({ email: args.email });
             const passwordMatches = await user.isCorrectPassword(args.password);
             if(!passwordMatches)
             {
+                console.log("PasswordFailed!");
                 return null;
             }
             const token = signToken(user);
@@ -28,16 +34,20 @@ const resolvers = {
             return { token: token, user: user};
         },
         saveBook: async (parent, args, context) => {
-            return User.findOneAndUpdate(
-                //{ _id: context.user._id },
-                { _id: "629a1f11301d6b143068f7a4" },
+            //console.log("SaveBook context:", context);
+            const A = await User.findOneAndUpdate(
+                { _id: context.user._id },
+                //{ _id: "629a1f11301d6b143068f7a4" },
                 { $addToSet: { savedBooks: args.bookId } },
                 { new: true, runValidators: true } // Very important, otherwise it sends back the old document!
             );
+            console.log("A", A);
+            return A;
         },
-        removeBook: async (parent, args) => {
+        removeBook: async (parent, args, context) => {
+            console.log("OMG");
             return User.findOneAndUpdate(
-                { _id: args.user._id },
+                { _id: context.user._id },
                 { $pull: { savedBooks: { bookId: args.params.bookId } } },
                 { new: true } // Very important, otherwise it sends back the old document!
             );
