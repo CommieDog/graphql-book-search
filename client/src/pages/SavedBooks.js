@@ -13,7 +13,7 @@ const SavedBooks = () => {
   const [_userData, setUserData] = useState({});
   
   const { loading, data } = useQuery(GET_ME);
-  let userData = data?.user || {};
+  let userData = data?.me || {};
 
   // use this to determine if `useEffect()` hook needs to run again
   /*const userDataLength = Object.keys(userData).length;
@@ -55,16 +55,17 @@ const SavedBooks = () => {
 
     try {
       //const response = await deleteBook(bookId, token);
-      const { updatedUser } = removeBook(bookId, token);
-
+      const updatedUser = (await removeBook({variables: {bookId}})).data.removeBook;
+console.log("updatedUser", updatedUser)
       /*if (!response.ok) {
         throw new Error('something went wrong!');
       }*/
 
       //const updatedUser = await response.json();
-      setUserData(updatedUser);
+      //setUserData(updatedUser);
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
+      window.location.reload(); // Needed to redo the query
     } catch (err) {
       console.error(err);
     }
@@ -75,7 +76,7 @@ const SavedBooks = () => {
   if(loading) {
     return <h2>LOADING...</h2>;
   }
-
+console.log("userData", userData);
   return (
     <>
       <Jumbotron fluid className='text-light bg-dark'>

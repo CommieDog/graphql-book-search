@@ -66,12 +66,14 @@ const SearchBooks = () => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
+      console.log("No token!")
       return false;
     }
 
     try {
       //const response = await saveBook(bookToSave, token);
-      const { data } = await saveBook(bookToSave, token);
+      //console.log(bookToSave, bookId);
+      const { data } = await saveBook({ variables: { ...bookToSave }});
 
       /*if (!response.ok) {
         throw new Error('something went wrong!');
